@@ -29,6 +29,14 @@
 
 当我准备好了，使用`git push`分享我的local changes到`myproject.git`裸仓库（通常是类似[github.com](http://github.com/)的远程服务器上），这样其他开发人员可以访问我的local changes。
 
+## 安装
+
+```shell
+sudo apt-get install git
+```
+
+
+
 ## 服务端搭建
 
 ```shell
