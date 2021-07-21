@@ -1,5 +1,6 @@
 fanwoshi:
   friendly_name: "卧室风扇"
+  unique_id: fan_woshi
   value_template: "{{ states('input_boolean.woshi_fan_state') }}"
   percentage_template: 0
   preset_mode_template: ""
