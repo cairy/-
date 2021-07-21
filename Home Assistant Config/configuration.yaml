@@ -11,5 +11,6 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
-fan: !include fan_Xiaomi_Miot_Auto.yaml
-switch: !include switch_Xiaomi_Miot_Auto.yaml
+climate: !include climate.yaml
+fan: !include fans.yaml
+switch: !include switches.yaml

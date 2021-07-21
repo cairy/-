@@ -1,0 +1,26 @@
+lumi_acpartner_ir:
+  friendly_name: "空调开关"
+  value_template: "{{ is_state('climate.aqara_air_conditioning_companion', 'on') }}"
+  turn_on:
+    service: climate.turn_on
+    target:
+      entity_id: climate.aqara_air_conditioning_companion # 实体ID
+  turn_off:
+    service: xiaomi_miio_airconditioningcompanion.climate_send_command
+    data:
+      entity_id: climate.aqara_air_conditioning_companion # 实体ID
+      command:
+        - FE00978022222194701fff7F0507008C27DA003C00A801C4038107D40FA913883201000000000000000100010100000000000000000000000100000000010001000001000400000000000000000000000000010000000000000000000000000000000100010532010000000000000001000101000000000000000000000001000000000101010000010004000000000000000000000000000000000000000000000000000000000000000106E7 # IR Code
+lumi_acpartner_fan_mode:
+  friendly_name: "空调扫风"
+  value_template: "{{ is_state_attr('climate.aqara_air_conditioning_companion','swing_mode','on') }}"
+  turn_on:
+    service: climate.set_swing_mode
+    data:
+      entity_id: climate.aqara_air_conditioning_companion # 实体ID
+      swing_mode: 'on'
+  turn_off:
+    service: climate.set_swing_mode
+    data:
+      entity_id: climate.aqara_air_conditioning_companion # 实体ID
+      swing_mode: 'off'
