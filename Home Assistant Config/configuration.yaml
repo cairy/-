@@ -18,6 +18,8 @@ input_boolean:
 input_number:
   woshi_fan_speed:
     name: 风扇速度
+    min: 0
+    max: 100
     icon: mdi:fan-speed-1
 input_select:
   woshi_fan_mode:
