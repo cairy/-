@@ -2,8 +2,10 @@ fanwoshi:
   friendly_name: "卧室风扇"
   unique_id: fan_woshi
   value_template: "{{ states('input_boolean.woshi_fan_state') }}"
-  percentage_template: 0
-  preset_mode_template: ""
+  percentage_template: "{{ states('input_number.woshi_fan_speed') }}"
+  preset_mode_template: "{{ states('input_select.woshi_fan_mode') }}" #模式
+  oscillating_template: "{{ states('input_select.woshi_fan_oscillating') }}" #转动
+  direction_template: "{{ states('input_select.woshi_fan_direction') }}" #方向
   speed_count: 3
   preset_modes:
     - 静音
@@ -11,8 +13,7 @@ fanwoshi:
     - service: xiaomi_miio_airconditioningcompanion.climate_send_command
       data:
         entity_id: climate.aqara_air_conditioning_companion
-        command:
-          "FE0000000000000000000000000500322257003600A701BC036E13883201000000000000000001010101010101010100000000000000000101010101010101000000000000000001010101010104F4" # IR Code
+        command: "FE0000000000000000000000000500322257003600A701BC036E13883201000000000000000001010101010101010100000000000000000101010101010101000000000000000001010101010104F4" # IR Code
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.woshi_fan_state
@@ -20,7 +21,7 @@ fanwoshi:
     - service: xiaomi_miio_airconditioningcompanion.climate_send_command
       data:
         entity_id: climate.aqara_air_conditioning_companion # 实体ID
-        command:"FE0000000000000000000000000500322257003600A701BC036E13883201000000000000000001010101010101010100000000000000000101010101010101000000000000000001010101010104F4" # IR Code
+        command: "FE0000000000000000000000000500322257003600A701BC036E13883201000000000000000001010101010101010100000000000000000101010101010101000000000000000001010101010104F4" # IR Code
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.woshi_fan_state
@@ -28,9 +29,19 @@ fanwoshi:
     service: xiaomi_miio_airconditioningcompanion.climate_send_command
     data:
       entity_id: climate.aqara_air_conditioning_companion # 实体ID
-      command:"FE00000000000000000000000006003222580033003C00A901BA0370138843020101000101010100020202020202020202020101000101010000020202020202020201010100000101010202020202056A" # IR Code
+      command: >
+        {% if is_state('input_boolean.woshi_fan_state', 'on') %}
+          FE00000000000000000000000006003222580033003C00A901BA0370138843020101000101010100020202020202020202020101000101010000020202020202020201010100000101010202020202056A
+        {% else %}
+          FE0000000000000000000000000500322257003600A701BC036E13883201000000000000000001010101010101010100000000000000000101010101010101000000000000000001010101010104F4
+        {% endif %}
   set_preset_mode: #模式
     service: xiaomi_miio_airconditioningcompanion.climate_send_command
     data:
       entity_id: climate.aqara_air_conditioning_companion # 实体ID
-      command:"FE000000000000000000000000080036225E003500A800DF01BD0370052E13882523430100000000000000000101010101010100000000010001000101010100010001000000000100010001010101000100010542074206F4" # IR Code
+      command: "FE000000000000000000000000080036225E003500A800DF01BD0370052E13882523430100000000000000000101010101010100000000010001000101010100010001000000000100010001010101000100010542074206F4" # IR Code
+  set_direction: #方向
+    service: xiaomi_miio_airconditioningcompanion.climate_send_command
+    data:
+      entity_id: climate.aqara_air_conditioning_companion # 实体ID
+      command: "FE000000000000000000000000080036225E003500A800DF01BD0370052E13882523430100000000000000000101010101010100000000010001000101010100010001000000000100010001010101000100010542074206F4"
