@@ -3,7 +3,7 @@ lumi_acpartner_ir:
   unique_id: kongtiao_turn_on_off
   value_template: "{{ not is_state('climate.aqara_air_conditioning_companion', 'off') }}"
   turn_on:
-    service: climate. set_hvac_mode
+    service: climate.set_hvac_mode
     target:
       entity_id: climate.aqara_air_conditioning_companion # 实体ID
     data:
