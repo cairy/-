@@ -22,12 +22,21 @@ input_number:
 input_select:
   woshi_fan_mode:
     name: 风扇模式
+    options:
+      - 静音
+      - 正常
     icon: mdi:fan-auto
   woshi_fan_oscillating:
     name: 风扇转动
+    options:
+      - 静音
+      - 正常
     icon: mdi:fan-off
   woshi_fan_direction:
     name: 风扇方向
+    options:
+      - 静音
+      - 正常
     icon: mdi:fan-chevron-down
 
 
