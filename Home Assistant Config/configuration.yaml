@@ -23,6 +23,7 @@ input_number:
     min: 0
     max: 100
     icon: mdi:fan-speed-1
+input_select:
   woshi_fan_direction:
     name: 风扇方向
     options:
