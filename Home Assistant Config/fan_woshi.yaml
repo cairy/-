@@ -40,6 +40,9 @@ fanwoshi:
           entity_id: input_number.woshi_fan_speed
       data:
         value: "{{ percentage }}"
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.woshi_fan_state
   set_preset_mode: #模式
     - service: xiaomi_miio_airconditioningcompanion.climate_send_command
       data:

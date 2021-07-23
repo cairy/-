@@ -39,7 +39,7 @@ input_select:
     options:
       - 静音
       - 正常
-    icon: mdi:fan-chevron-down
+    icon: mdi:fan-off
 
 
 climate: !include climate.yaml
