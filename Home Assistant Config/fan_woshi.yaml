@@ -1,5 +1,5 @@
 fanwoshi:
-  friendly_name: "卧室风扇"
+  friendly_name: "风扇"
   unique_id: fan_woshi
   value_template: "{{ states('input_boolean.woshi_fan_state') }}"
   percentage_template: "{{ states('input_number.woshi_fan_speed') }}"

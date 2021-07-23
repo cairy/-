@@ -1,3 +1,0 @@
-- platform: template
-  # https://www.home-assistant.io/integrations/fan.template
-  fans: !include fan_woshi.yaml

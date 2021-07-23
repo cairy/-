@@ -30,5 +30,10 @@ input_number:
 
 
 climate: !include climate.yaml
-fan: !include fans.yaml
-switch: !include switches.yaml
+fan:
+  - platform: template
+    # https://www.home-assistant.io/integrations/fan.template
+    fans: !include fan_woshi.yaml
+switch:
+  - platform: template
+    switches: !include switch_kongtiao.yaml
