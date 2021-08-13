@@ -8,6 +8,10 @@ default_config:
 tts:
   - platform: google_translate
 
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -17,26 +21,56 @@ input_boolean:
   woshi_fan_state:
     name: 风扇开关
     icon: mdi:fan
+  airmate_fan_state:
+    name: 艾美特风扇开关
+    icon: mdi:fan
+  midea_fan_state:
+    name: 美的风扇开关
+    icon: mdi:fan
 input_number:
   woshi_fan_speed:
     name: 风扇速度
     min: 0
     max: 100
     icon: mdi:fan-speed-1
+  airmate_fan_speed:
+    name: 艾美特风扇速度
+    min: 0
+    max: 100
+    icon: mdi:fan-speed-1
+  midea_fan_speed:
+    name: 美的风扇速度
+    min: 0
+    max: 100
+    icon: mdi:fan-speed-1
 input_select:
-  woshi_fan_direction:
+  woshi_fan_direction: #记录是否静音
     name: 风扇方向
     options:
-      - 静音
-      - 正常
+      - forward
+      - reverse
     icon: mdi:fan-off
-
+  airmate_fan_oscillating:
+    name: 艾美特风扇转动
+    options:
+      - False
+      - True
+    icon: mdi:fan-auto
+  midea_fan_oscillating:
+    name: 美的风扇转动
+    options:
+      - False
+      - True
+    icon: mdi:fan-auto
 
 climate: !include climate.yaml
 fan:
   - platform: template
     # https://www.home-assistant.io/integrations/fan.template
-    fans: !include fan_woshi.yaml
+    fans: 
+      fanwoshi: !include fan_woshi.yaml
+      fanmidea: !include fan_midea.yaml
+      fanairmate: !include fan_airmate.yaml
 switch:
   - platform: template
     switches: !include switch_kongtiao.yaml

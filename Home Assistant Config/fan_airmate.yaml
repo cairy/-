@@ -1,0 +1,51 @@
+friendly_name: "艾美特风扇"
+unique_id: fan_airmate
+value_template: "{{ states('input_boolean.airmate_fan_state') }}"
+percentage_template: "{{ states('input_number.airmate_fan_speed') }}"
+oscillating_template: "{{ states('input_select.airmate_fan_oscillating') }}" #转动
+speed_count: 4
+turn_on:
+  - service: remote.send_command
+    target:
+      entity_id: remote.zhi_neng_yao_kong_remote
+    data:
+      command: "b64:JgDCAC0NLg4QKy0OLg4RKhArECoQKxAqECsu8y4NLg4RKi4OLw4QKxAqECsQKhAqESou8y4OLg4QKy4NLw4QKxAqESoQKxAqECou9C0OLg4QKy4OLg4QKxArECoQKxAqECsu9i0OLg4QKy4NLw4QKxArECoQKxAqECsu9i4OLg4QKy4NLw4QKxArECoQKxAqECsu9i4OLg4QKi4OLg8QKw4sDywQKg4tDiws+C4OLBAPLC0OLRAPLA8sDysPLA8sDiwtAA0FAAAAAAAA" # IR Code
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.airmate_fan_state
+turn_off:
+  - service: remote.send_command
+    target:
+      entity_id: remote.zhi_neng_yao_kong_remote
+    data:
+      command: "b64:JgDCAC0NLg4QKy0OLg4RKhArECoQKxAqECsu8y4NLg4RKi4OLw4QKxAqECsQKhAqESou8y4OLg4QKy4NLw4QKxAqESoQKxAqECou9C0OLg4QKy4OLg4QKxArECoQKxAqECsu9i0OLg4QKy4NLw4QKxArECoQKxAqECsu9i4OLg4QKy4NLw4QKxArECoQKxAqECsu9i4OLg4QKi4OLg8QKw4sDywQKg4tDiws+C4OLBAPLC0OLRAPLA8sDysPLA8sDiwtAA0FAAAAAAAA" # IR Code
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.airmate_fan_state
+set_percentage:
+  - service: remote.send_command
+    target:
+      entity_id: remote.zhi_neng_yao_kong_remote
+    data:
+      command: >
+        {% if is_state('input_boolean.airmate_fan_state', 'on') %}
+          b64:JgC2ACwOLQ4QKi0OLQ4QKxAqECoQKhAqLg0QAAEPLg0uDRArLQ4uDhArECoQKhAqECstDhAAAQ8uDS4OECouDi4OECoQKxAqECsPKy0OEAABEC0OLg0RKi4NLw4QKhArECoQKxAqLg0RAAESLQ4uDREqLg4uDhArECoQKxAqECouDhAAARMuDi0OESouDS8OECsQKhArECoQKy0OEAABEy4NLg4QKy4OLg4QKxAqECsQKhEqLg4QAA0FAAA=
+        {% else %}
+          b64:JgDCAC0NLg4QKy0OLg4RKhArECoQKxAqECsu8y4NLg4RKi4OLw4QKxAqECsQKhAqESou8y4OLg4QKy4NLw4QKxAqESoQKxAqECou9C0OLg4QKy4OLg4QKxArECoQKxAqECsu9i0OLg4QKy4NLw4QKxArECoQKxAqECsu9i4OLg4QKy4NLw4QKxArECoQKxAqECsu9i4OLg4QKi4OLg8QKw4sDywQKg4tDiws+C4OLBAPLC0OLRAPLA8sDysPLA8sDiwtAA0FAAAAAAAA
+        {% endif %}
+  - service: input_number.set_value
+    target:
+        entity_id: input_number.airmate_fan_speed
+    data:
+      value: "{{ percentage }}"
+set_oscillating: #转动
+  - service: remote.send_command
+    target:
+      entity_id: remote.zhi_neng_yao_kong_remote
+    data:
+      command: "b64:JgC2ACoQKxANLSsPLBAOLA4sLBANLQ4sDiwOAAERKxArEA4tKxAsEA4tDS0rEA4tDiwOLQ0AARIrECwQDS0sEC0PDS0OLSsQDi0OLA4tDQABEiwQLQ4QKy0OLg4QKw4sLBAQKw8rDi0NAAEVLA8uDhArKxAuDhArDywrEBArDiwOLQ4AARUsDywQDi0tDi4ODi0OLSsQDi0OLA4tDgABFSsQKxAOLSsQLBENLQ4tKxAOLQ4tDS0OAA0FAAA="
+  - service: input_select.select_next
+    target:
+        entity_id: input_select.airmate_fan_oscillating
+    data:
+      cycle: true
