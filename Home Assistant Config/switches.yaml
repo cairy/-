@@ -27,3 +27,25 @@ lumi_acpartner_fan_mode:
     data:
       entity_id: climate.aqara_air_conditioning_companion # 实体ID
       swing_mode: 'off'
+television:
+  friendly_name: "电视机"
+  unique_id: television_turn_on_off
+  value_template: "{{ states('input_boolean.television_power_state') }}"
+  turn_on:
+    - service: remote.send_command
+      target:
+        entity_id: remote.zhi_neng_yao_kong_remote
+      data:
+        command: "b64:JgBIAAABJZUUERQRFBITEhMSFBEUERQRFDYUNhQ3EzcUNhQ2FBEUNhQ2FBITNxQ2FBEUERQRFBEUEhM3ExIUERQ2EzcUNhQ2FAANBQ==" # IR Code
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.television_power_state
+  turn_off:
+    - service: remote.send_command
+      target:
+        entity_id: remote.zhi_neng_yao_kong_remote
+      data:
+        command: "b64:JgBIAAABJZUUERQRFBITEhMSFBEUERQRFDYUNhQ3EzcUNhQ2FBEUNhQ2FBITNxQ2FBEUERQRFBEUEhM3ExIUERQ2EzcUNhQ2FAANBQ==" # IR Code
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.television_power_state

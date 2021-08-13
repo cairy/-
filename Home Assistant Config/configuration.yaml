@@ -27,6 +27,9 @@ input_boolean:
   midea_fan_state:
     name: 美的风扇开关
     icon: mdi:fan
+  television_power_state:
+    name: 电视机开关
+    icon: mdi:television-classic
 input_number:
   woshi_fan_speed:
     name: 风扇速度
@@ -73,4 +76,4 @@ fan:
       fanairmate: !include fan_airmate.yaml
 switch:
   - platform: template
-    switches: !include switch_kongtiao.yaml
+    switches: !include switches.yaml
